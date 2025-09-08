@@ -16,16 +16,6 @@ TODO application built with vanilla JavaScript using OOP principles. Users can a
 - CSS
 - JavaScript (OOP, ES6 Classes)
 
-📂 Project Structure
-
-```plaintext
-/project-root
-│── index.html
-│── style.css
-│── script.js
-│── README.md
-```
-
 📖 Learning Goals
 
 This project was created as a practice exercise to:

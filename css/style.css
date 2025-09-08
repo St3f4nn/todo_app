@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+
+:root {
+  /* Colors */
+
+  /* Primary */
+  --primary-blue: hsl(220, 98%, 61%);
+  --primary-background: linear-gradient hsl(192, 100%, 67%) to
+    hsl(280, 87%, 65%);
+
+  /* Neutral */
+  --neutral-gray-50: hsl(0, 0%, 98%);
+  --neutral-gray-300: hsl(233, 11%, 84%);
+  --neutral-gray-600: hsl(236, 9%, 61%);
+
+  --neutral-purple-100: hsl(236, 33%, 92%);
+  --neutral-purple-300: hsl(234, 39%, 85%);
+  --neutral-purple-600: hsl(235, 16%, 43%);
+  --neutral-purple-700: hsl(233, 14%, 35%);
+  --neutral-purple-800: hsl(237, 14%, 26%);
+
+  --neutral-navy-850: hsl(235, 19%, 35%);
+  --neutral-navy-900: hsl(235, 24%, 19%);
+  --neutral-navy-950: hsl(235, 21%, 11%);
+}
+
+/* General styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Josefin Sans", sans-serif;
+}
