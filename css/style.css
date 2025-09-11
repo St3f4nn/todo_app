@@ -31,6 +31,125 @@
   box-sizing: border-box;
 }
 
-body {
+body,
+button {
   font-family: "Josefin Sans", sans-serif;
+}
+
+body {
+  background-color: var(--neutral-gray-50);
+}
+
+html.dark body {
+  background-color: var(--neutral-navy-950);
+}
+
+ul {
+  list-style-type: none;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+/* Utilities */
+.container {
+  max-width: 36.75rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Showcase */
+.showcase {
+  height: 18.75rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url("../assets/images/bg-desktop-light.jpg");
+}
+
+html.dark .showcase {
+  background-image: url("../assets/images/bg-desktop-dark.jpg");
+}
+
+/* Header */
+.header,
+main {
+  position: relative;
+  z-index: 2;
+}
+
+.header {
+  padding: 4.875rem 0 2.5rem;
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  color: var(--neutral-gray-50);
+  text-transform: uppercase;
+  font-size: 2.5rem;
+  letter-spacing: 0.9375rem;
+}
+
+.toggle-theme {
+  display: flex;
+  margin-top: 0.1875rem;
+  flex-shrink: 0;
+}
+
+.theme-icon {
+  height: 1.625rem;
+}
+
+.sun-icon {
+  display: none;
+}
+
+html.dark .sun-icon {
+  display: inline;
+}
+
+html.dark .moon-icon {
+  display: none;
+}
+
+@media screen and (max-width: 48rem) {
+  /* Showcase */
+  .showcase {
+    height: 12.5rem;
+    background-image: url("../assets/images/bg-mobile-light.jpg");
+  }
+
+  html.dark .showcase {
+    background-image: url("../assets/images/bg-mobile-dark.jpg");
+  }
+
+  /* Header */
+  .header {
+    padding: 3rem 0 2.0625rem;
+  }
+
+  .logo {
+    font-size: 1.625rem;
+    letter-spacing: 0.625rem;
+  }
+
+  .toggle-theme {
+    margin-top: 0;
+  }
+
+  .theme-icon {
+    height: 1.25rem;
+  }
 }
