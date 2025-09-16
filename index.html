@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -50,10 +50,15 @@
         <section class="task-container">
           <ul class="task-list">
             <li class="task checked">
-              <button class="checkbox"></button>
+              <button class="checkbox">
+                <img
+                  src="./assets/images/icon-check.svg"
+                  alt="Check icon"
+                  class="check-icon" />
+              </button>
               <p class="task-description">Complete online JavaScript course</p>
-              <button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+              <button class="task-delete-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
                   <path
                     fill="#494C6B"
                     fill-rule="evenodd"
@@ -62,10 +67,15 @@
               </button>
             </li>
             <li class="task">
-              <button class="checkbox"></button>
+              <button class="checkbox">
+                <img
+                  src="./assets/images/icon-check.svg"
+                  alt="Check icon"
+                  class="check-icon" />
+              </button>
               <p class="task-description">Jog around the park 3x</p>
-              <button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+              <button class="task-delete-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
                   <path
                     fill="#494C6B"
                     fill-rule="evenodd"
@@ -74,10 +84,15 @@
               </button>
             </li>
             <li class="task">
-              <button class="checkbox"></button>
+              <button class="checkbox">
+                <img
+                  src="./assets/images/icon-check.svg"
+                  alt="Check icon"
+                  class="check-icon" />
+              </button>
               <p class="task-description">10 minutes meditation</p>
-              <button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+              <button class="task-delete-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
                   <path
                     fill="#494C6B"
                     fill-rule="evenodd"
@@ -86,10 +101,15 @@
               </button>
             </li>
             <li class="task">
-              <button class="checkbox"></button>
+              <button class="checkbox">
+                <img
+                  src="./assets/images/icon-check.svg"
+                  alt="Check icon"
+                  class="check-icon" />
+              </button>
               <p class="task-description">Read for 1 hour</p>
-              <button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+              <button class="task-delete-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
                   <path
                     fill="#494C6B"
                     fill-rule="evenodd"
@@ -98,10 +118,15 @@
               </button>
             </li>
             <li class="task">
-              <button class="checkbox"></button>
+              <button class="checkbox">
+                <img
+                  src="./assets/images/icon-check.svg"
+                  alt="Check icon"
+                  class="check-icon" />
+              </button>
               <p class="task-description">Pick up groceries</p>
-              <button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+              <button class="task-delete-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
                   <path
                     fill="#494C6B"
                     fill-rule="evenodd"
@@ -110,12 +135,17 @@
               </button>
             </li>
             <li class="task">
-              <button class="checkbox"></button>
+              <button class="checkbox">
+                <img
+                  src="./assets/images/icon-check.svg"
+                  alt="Check icon"
+                  class="check-icon" />
+              </button>
               <p class="task-description">
                 Complete Todo App on Frontend Mentor
               </p>
-              <button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+              <button class="task-delete-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
                   <path
                     fill="#494C6B"
                     fill-rule="evenodd"
@@ -127,9 +157,11 @@
           <div class="task-controls">
             <small><span class="task-amount">5</span> items left</small>
             <nav class="task-filter">
-              <button class="task-filter-btn">all</button>
-              <button class="task-filter-btn">active</button>
-              <button class="task-filter-btn">completed</button>
+              <div class="task-filter-container">
+                <button class="task-filter-btn active">all</button>
+                <button class="task-filter-btn">active</button>
+                <button class="task-filter-btn">completed</button>
+              </div>
             </nav>
             <button class="clear-completed-tasks">clear completed</button>
           </div>
