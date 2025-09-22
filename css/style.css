@@ -394,11 +394,6 @@ html.dark .task-controls button:hover {
     height: 1.25rem;
   }
 
-  /* Main */
-  main {
-    padding-bottom: 0;
-  }
-
   /* Create task section */
   .create-task {
     gap: 0.75rem;
