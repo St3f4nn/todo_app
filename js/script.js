@@ -48,9 +48,10 @@
 */
 
 class Task {
-  constructor(description) {
+  constructor(description, onToggleCompleted) {
     this.description = description;
     this.completed = false;
+    this.onToggleCompleted = onToggleCompleted;
 
     this.el = document.createElement("li");
     this.el.className = "task";
@@ -65,6 +66,26 @@ class Task {
         </svg>
       </button>
     `;
+
+    this._initEvents();
+  }
+
+  _initEvents() {
+    this.el.addEventListener("click", e => {
+      if (!e.target.closest(".task-delete-btn")) {
+        this._toggleCompleted();
+      } else {
+        console.log("Dugme je kliknuto");
+      }
+    });
+  }
+
+  _toggleCompleted() {
+    this.completed = !this.completed;
+
+    this.el.classList.toggle("checked", this.completed);
+
+    if (this.onToggleCompleted) this.onToggleCompleted(this.completed);
   }
 }
 
@@ -99,18 +120,7 @@ class App {
           return;
         }
 
-        // Render task
         this._addTask(value);
-
-        // Clear input field
-        this.createTaskInputField.value = "";
-
-        // Render "task-controls" element
-        this.taskControls.classList.remove("hidden");
-
-        // Update "... items left" element
-        this.taskAmount++;
-        this.taskAmountEl.textContent = this.taskAmount;
       }
     });
   }
@@ -122,11 +132,26 @@ class App {
 
   // Create new task
   _addTask(description) {
-    const task = new Task(description);
+    const task = new Task(description, completed => {
+      this.taskAmount += completed ? -1 : 1;
+
+      this.taskAmountEl.textContent = this.taskAmount;
+    });
 
     this.tasks.push(task);
 
+    // Render task
     this.taskList.appendChild(task.el);
+
+    // Clear input field
+    this.createTaskInputField.value = "";
+
+    // Render "task-controls" element
+    this.taskControls.classList.remove("hidden");
+
+    // Update "... items left" element
+    this.taskAmount++;
+    this.taskAmountEl.textContent = this.taskAmount;
   }
 }
 
