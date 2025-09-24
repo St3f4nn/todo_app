@@ -47,19 +47,86 @@
 
 */
 
+class Task {
+  constructor(description) {
+    this.description = description;
+    this.completed = false;
+
+    this.el = document.createElement("li");
+    this.el.className = "task";
+    this.el.innerHTML = `
+      <button class="checkbox">
+        <img src="./assets/images/icon-check.svg" alt="Check icon" class="check-icon" />
+      </button>
+      <p class="task-description">${description}</p>
+      <button class="task-delete-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
+          <path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z" />
+        </svg>
+      </button>
+    `;
+  }
+}
+
 class App {
   constructor() {
     this.toggleThemeBtn = document.querySelector(".toggle-theme");
 
+    this.createTaskInputField = document.querySelector("#create-todo");
+
+    this.tasks = [];
+    this.taskList = document.querySelector(".task-list");
+
+    this.taskControls = document.querySelector(".task-controls");
+
+    this.taskAmount = 0;
+    this.taskAmountEl = document.querySelector(".task-amount");
+
     this._initEvents();
   }
 
+  // Events
   _initEvents() {
-    this.toggleThemeBtn.addEventListener("click", this.toggleTheme.bind(this));
+    this.toggleThemeBtn.addEventListener("click", this._toggleTheme.bind(this));
+
+    this.createTaskInputField.addEventListener("keypress", e => {
+      if (e.key === "Enter") {
+        const value = this.createTaskInputField.value;
+
+        if (!value) {
+          alert("INVALID VALUE!");
+
+          return;
+        }
+
+        // Render task
+        this._addTask(value);
+
+        // Clear input field
+        this.createTaskInputField.value = "";
+
+        // Render "task-controls" element
+        this.taskControls.classList.remove("hidden");
+
+        // Update "... items left" element
+        this.taskAmount++;
+        this.taskAmountEl.textContent = this.taskAmount;
+      }
+    });
   }
 
-  toggleTheme() {
+  // Toggle dark mode
+  _toggleTheme() {
     document.documentElement.classList.toggle("dark");
+  }
+
+  // Create new task
+  _addTask(description) {
+    const task = new Task(description);
+
+    this.tasks.push(task);
+
+    this.taskList.appendChild(task.el);
   }
 }
 
