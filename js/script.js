@@ -133,6 +133,17 @@ class App {
         this._addTask(value);
       }
     });
+
+    this.taskControls.addEventListener("click", e => {
+      // Clear completed tasks
+      if (e.target.closest(".clear-completed-tasks")) {
+        document.querySelectorAll(".task.checked").forEach(t => t.remove());
+
+        this.tasks = this.tasks.filter(t => !t.completed);
+
+        if (this.tasks.length < 1) this.taskControls.classList.add("hidden");
+      }
+    });
   }
 
   // Toggle dark mode

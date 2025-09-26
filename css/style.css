@@ -354,8 +354,9 @@ html.dark .task-controls button:hover {
   color: var(--neutral-gray-300);
 }
 
-.clear-completed-tasks {
-  text-align: right;
+.clear-completed-tasks-container {
+  display: flex;
+  justify-content: end;
 }
 
 @media screen and (max-width: 48rem) {
