@@ -42,16 +42,17 @@
 
 6. SEE THE STATE OF THE APPLICATION ON RELOAD
      6.1 Store app data in the browser using localStorage API
-     6.2 Sync to localStorage on every state change (add, toggle, delete, filter, theme)
+     6.2 Sync to localStorage on every state change (add, toggle, delete, theme)
      6.3 On page load, read saved data from localStorage and display
 
 */
 
 class Task {
-  constructor(description, onToggleCompleted) {
+  constructor(description, onToggleCompleted, onRemove) {
     this.description = description;
     this.completed = false;
     this.onToggleCompleted = onToggleCompleted;
+    this.onRemove = onRemove;
 
     this.el = document.createElement("li");
     this.el.className = "task";
@@ -70,22 +71,31 @@ class Task {
     this._initEvents();
   }
 
+  // Events
   _initEvents() {
     this.el.addEventListener("click", e => {
       if (!e.target.closest(".task-delete-btn")) {
         this._toggleCompleted();
       } else {
-        console.log("Dugme je kliknuto");
+        this._remove();
       }
     });
   }
 
+  // Toggle completed task
   _toggleCompleted() {
     this.completed = !this.completed;
 
     this.el.classList.toggle("checked", this.completed);
 
     if (this.onToggleCompleted) this.onToggleCompleted(this.completed);
+  }
+
+  // Remove task
+  _remove() {
+    if (this.onRemove) this.onRemove(this);
+
+    this.el.remove();
   }
 }
 
@@ -132,11 +142,24 @@ class App {
 
   // Create new task
   _addTask(description) {
-    const task = new Task(description, completed => {
-      this.taskAmount += completed ? -1 : 1;
+    const task = new Task(
+      description,
+      completed => {
+        this.taskAmount += completed ? -1 : 1;
 
-      this.taskAmountEl.textContent = this.taskAmount;
-    });
+        this.taskAmountEl.textContent = this.taskAmount;
+      },
+      taskToRemove => {
+        this.tasks = this.tasks.filter(t => t !== taskToRemove);
+
+        if (!taskToRemove.completed) {
+          this.taskAmount--;
+          this.taskAmountEl.textContent = this.taskAmount;
+        }
+
+        if (this.tasks.length < 1) this.taskControls.classList.add("hidden");
+      }
+    );
 
     this.tasks.push(task);
 
