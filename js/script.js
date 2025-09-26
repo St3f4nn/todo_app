@@ -135,8 +135,40 @@ class App {
     });
 
     this.taskControls.addEventListener("click", e => {
-      // Clear completed tasks
+      if (e.target.closest(".task-filter-btn")) {
+        const clickedBtn = e.target.closest(".task-filter-btn");
+
+        document
+          .querySelectorAll(".task-filter-btn")
+          .forEach(btn => btn.classList.remove("active"));
+
+        clickedBtn.classList.add("active");
+
+        document
+          .querySelectorAll(".task")
+          .forEach(t => t.classList.add("hidden"));
+
+        // Display ALL tasks
+        clickedBtn.dataset.filter === "all" &&
+          document
+            .querySelectorAll(".task")
+            .forEach(t => t.classList.remove("hidden"));
+
+        // Display ACTIVE tasks
+        clickedBtn.dataset.filter === "active" &&
+          document
+            .querySelectorAll(".task:not(.checked)")
+            .forEach(t => t.classList.remove("hidden"));
+
+        // Display COMPLETED tasks
+        clickedBtn.dataset.filter === "completed" &&
+          document
+            .querySelectorAll(".task.checked")
+            .forEach(t => t.classList.remove("hidden"));
+      }
+
       if (e.target.closest(".clear-completed-tasks")) {
+        // Clear completed tasks
         document.querySelectorAll(".task.checked").forEach(t => t.remove());
 
         this.tasks = this.tasks.filter(t => !t.completed);
