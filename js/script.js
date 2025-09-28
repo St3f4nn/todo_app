@@ -48,11 +48,12 @@
 */
 
 class Task {
-  constructor(description, onToggleCompleted, onRemove) {
+  constructor(description, onToggleCompleted, onRemove, onSave) {
     this.description = description;
     this.completed = false;
     this.onToggleCompleted = onToggleCompleted;
     this.onRemove = onRemove;
+    this.onSave = onSave;
 
     this.el = document.createElement("li");
     this.el.className = "task";
@@ -89,6 +90,8 @@ class Task {
     this.el.classList.toggle("checked", this.completed);
 
     if (this.onToggleCompleted) this.onToggleCompleted(this.completed);
+
+    if (this.onSave) this.onSave();
   }
 
   // Remove task
@@ -113,7 +116,14 @@ class App {
     this.taskAmount = 0;
     this.taskAmountEl = document.querySelector(".task-amount");
 
+    const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    savedTasks.forEach(t => this._addTask(t.description, t.completed));
+
     this._initEvents();
+
+    if (localStorage.getItem("theme") === "dark")
+      document.documentElement.classList.add("dark");
   }
 
   // Events
@@ -174,6 +184,8 @@ class App {
         this.tasks = this.tasks.filter(t => !t.completed);
 
         if (this.tasks.length < 1) this.taskControls.classList.add("hidden");
+
+        this._saveTasks();
       }
     });
   }
@@ -181,14 +193,20 @@ class App {
   // Toggle dark mode
   _toggleTheme() {
     document.documentElement.classList.toggle("dark");
+
+    if (document.documentElement.classList.contains("dark")) {
+      localStorage.setItem("theme", "dark");
+    } else {
+      localStorage.setItem("theme", "light");
+    }
   }
 
   // Create new task
-  _addTask(description) {
+  _addTask(description, completed = false) {
     const task = new Task(
       description,
-      completed => {
-        this.taskAmount += completed ? -1 : 1;
+      completedNow => {
+        this.taskAmount += completedNow ? -1 : 1;
 
         this.taskAmountEl.textContent = this.taskAmount;
       },
@@ -201,13 +219,22 @@ class App {
         }
 
         if (this.tasks.length < 1) this.taskControls.classList.add("hidden");
-      }
+
+        this._saveTasks();
+      },
+      () => this._saveTasks()
     );
+
+    task.completed = completed;
+
+    if (completed) task.el.classList.add("checked");
 
     this.tasks.push(task);
 
     // Render task
     this.taskList.appendChild(task.el);
+
+    if (!arguments[1]) this._saveTasks();
 
     // Clear input field
     this.createTaskInputField.value = "";
@@ -216,8 +243,19 @@ class App {
     this.taskControls.classList.remove("hidden");
 
     // Update "... items left" element
-    this.taskAmount++;
-    this.taskAmountEl.textContent = this.taskAmount;
+    if (!completed) {
+      this.taskAmount++;
+      this.taskAmountEl.textContent = this.taskAmount;
+    }
+  }
+
+  _saveTasks() {
+    const plainTasks = this.tasks.map(t => ({
+      description: t.description,
+      completed: t.completed,
+    }));
+
+    localStorage.setItem("tasks", JSON.stringify(plainTasks));
   }
 }
 
