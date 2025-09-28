@@ -161,14 +161,18 @@ class App {
       completedNow => {
         this.taskAmount += completedNow ? -1 : 1;
 
-        this.taskAmountEl.textContent = this.taskAmount;
+        this.taskAmountEl.textContent = `${this.taskAmount} item${
+          this.taskAmount !== 1 ? "s" : ""
+        }`;
       },
       taskToRemove => {
         this.tasks = this.tasks.filter(t => t !== taskToRemove);
 
         if (!taskToRemove.completed) {
           this.taskAmount--;
-          this.taskAmountEl.textContent = this.taskAmount;
+          this.taskAmountEl.textContent = `${this.taskAmount} item${
+            this.taskAmount !== 1 ? "s" : ""
+          }`;
         }
 
         if (this.tasks.length < 1) this.taskControls.classList.add("hidden");
@@ -198,7 +202,9 @@ class App {
     // Update "... items left" element
     if (!completed) {
       this.taskAmount++;
-      this.taskAmountEl.textContent = this.taskAmount;
+      this.taskAmountEl.textContent = `${this.taskAmount} item${
+        this.taskAmount !== 1 ? "s" : ""
+      }`;
     }
   }
 
