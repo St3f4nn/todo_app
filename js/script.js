@@ -71,7 +71,7 @@ class App {
 
     const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-    savedTasks.forEach(t => this._addTask(t.description, t.completed));
+    savedTasks.forEach(t => this._addTask(t.description, t.completed, true));
 
     this._initEvents();
 
@@ -155,7 +155,7 @@ class App {
   }
 
   // Create new task
-  _addTask(description, completed = false) {
+  _addTask(description, completed = false, isFromLocalStorage = false) {
     const task = new Task(
       description,
       completedNow => {
@@ -187,7 +187,7 @@ class App {
     // Render task
     this.taskList.appendChild(task.el);
 
-    if (!arguments[1]) this._saveTasks();
+    if (!isFromLocalStorage) this._saveTasks();
 
     // Clear input field
     this.createTaskInputField.value = "";
